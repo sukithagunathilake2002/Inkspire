@@ -1,28 +1,32 @@
 package com.inkspire.inkspire.service.impl;
 
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.inkspire.inkspire.model.Comment;
 import com.inkspire.inkspire.repository.CommentRepository;
 import com.inkspire.inkspire.service.CommentService;
 
-public class CommentServiceImpl implements CommentService{
+@Service
+public class CommentServiceImpl implements CommentService {
 
-    @Autowired
     private final CommentRepository commentRepository;
+    //private final PostRepository postRepository;
 
     @Autowired
-    private final PostRepository postRepository;
+    public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
+        this.commentRepository = commentRepository;
+        this.postRepository = postRepository;
+    }
 
-    // Retrieves all comments associated with a post
     @Override
     public List<Comment> getCommentsForPost(Long postId) {
         return commentRepository.findByPostId(postId);
     }
 
-    // Adds a new comment to a post
     @Override
     public Comment addCommentToPost(Long postId, String content, String commentBy, String commentById, String commentByProfile) {
         Post post = postRepository.findById(postId)
@@ -33,13 +37,12 @@ public class CommentServiceImpl implements CommentService{
         comment.setCommentBy(commentBy);
         comment.setCommentById(commentById);
         comment.setCommentByProfile(commentByProfile);
-        comment.setCreatedAt(new Date()); // Set current Date object
-        comment.setPost(post); // Set the whole post object reference
+        comment.setCreatedAt(new Date());
+        comment.setPost(post);
 
         return commentRepository.save(comment);
     }
 
-    // Deletes a comment
     @Override
     public void deleteComment(Long postId, Long commentId) {
         Comment comment = commentRepository.findById(commentId)
@@ -51,7 +54,6 @@ public class CommentServiceImpl implements CommentService{
         commentRepository.delete(comment);
     }
 
-    // Edits the content of a comment
     @Override
     public Comment editComment(Long commentId, String content) {
         Comment comment = commentRepository.findById(commentId)
@@ -59,6 +61,5 @@ public class CommentServiceImpl implements CommentService{
 
         comment.setContent(content);
         return commentRepository.save(comment);
-    }
+    }
 }
-    
