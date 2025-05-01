@@ -3,20 +3,20 @@ package com.inkspire.inkspire.service.impl;
 import java.util.List;
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.inkspire.inkspire.model.Comment;
+import com.inkspire.inkspire.model.Post;
 import com.inkspire.inkspire.repository.CommentRepository;
+import com.inkspire.inkspire.repository.PostRepository;
 import com.inkspire.inkspire.service.CommentService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
-    //private final PostRepository postRepository;
+    private final PostRepository postRepository;
 
-    @Autowired
     public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
         this.commentRepository = commentRepository;
         this.postRepository = postRepository;
