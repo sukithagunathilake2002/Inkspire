@@ -34,8 +34,8 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    //@ManyToOne
-   // @JoinColumn(name = "post_id", nullable = false)
-    //@JsonBackReference
-    //private Post post;
+    @ManyToOne
+    @JoinColumn(name = "post_id", nullable = false)
+    @JsonBackReference
+    private Post post;
 }
