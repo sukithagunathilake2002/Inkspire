@@ -14,6 +14,8 @@ import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
 import LearningPlans from './components/LearningPlans';
 import PrivateRoute from './components/PrivateRoute';
+import PostList from './components/PostList';
+import NewPost from './components/NewPost';
 // Removed GoogleOAuthProvider import as it's not being used
 
 function App() {
@@ -81,6 +83,9 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="/" element={<PostList />} />
+              <Route path="/newpost" element={<NewPost />} />
+              
             </Routes>
             <Footer />
           </div>
