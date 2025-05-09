@@ -1,13 +1,15 @@
 package com.inkspire.inkspire.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "posts")
 public class Post {
 
@@ -15,24 +17,29 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Size(max = 300, message = "Caption must be less than 300 characters")
-    private String caption;
+    private String description;
+
+    private boolean isPrivate;
+
+    private boolean isVideo;
 
     private LocalDateTime createdAt;
 
-    @NotNull(message = "isVideo must be specified")
-    private Boolean isVideo;
-
     @ElementCollection
-    @Size(min = 1, message = "At least one media URL is required")
+    @CollectionTable(name = "post_media", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "media_url")
     private List<String> mediaUrls;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @PrePersist
-    public void onCreate() {
+    protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
 
-    // === Getters and Setters ===
+    // Getters and Setters
 
     public Long getId() {
         return id;
@@ -42,12 +49,28 @@ public class Post {
         this.id = id;
     }
 
-    public String getCaption() {
-        return caption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
+
+    public boolean isVideo() {
+        return isVideo;
+    }
+
+    public void setVideo(boolean video) {
+        isVideo = video;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -58,19 +81,19 @@ public class Post {
         this.createdAt = createdAt;
     }
 
-    public Boolean getIsVideo() {
-        return isVideo;
-    }
-
-    public void setIsVideo(Boolean isVideo) {
-        this.isVideo = isVideo;
-    }
-
     public List<String> getMediaUrls() {
         return mediaUrls;
     }
 
     public void setMediaUrls(List<String> mediaUrls) {
         this.mediaUrls = mediaUrls;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
