@@ -1,84 +1,90 @@
-/* PostList.css */
-
-.create-post-btn {
-    background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 30px;
-    padding: 0.6rem 1.4rem;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .create-post-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  }
-  
-  .create-post-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  }
-  
-  .postlist-container {
+.postlist-container {
     max-width: 600px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    margin: 0 auto;
+    padding: 20px;
   }
   
   .postlist-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
   }
   
-  .post-card {
-    background-color: #fff;
-    border-radius: 12px;
+  .postlist-title {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .postlist-newpost-btn {
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .postlist-card {
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
     overflow: hidden;
   }
   
-  .post-media {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .post-body {
-    padding: 1rem;
-  }
-  
-  .post-caption {
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-  }
-  
-  .post-buttons {
+  .postlist-media {
     display: flex;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #f0f8ff;
   }
   
-  .post-buttons button {
-    flex: 1;
+  .postlist-media-item {
+    max-width: 100%;
+    height: auto;
+    margin: 5px 0;
   }
   
-  textarea.edit-caption {
-    width: 100%;
-    border-radius: 6px;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid #ccc;
+  .postlist-description {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #444;
   }
   
-  .btn-primary, .btn-secondary, .btn-outline-primary, .btn-outline-danger {
+  .postlist-privacy {
+    padding: 0 15px 10px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .postlist-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+  
+  .postlist-buttons button {
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
     border-radius: 20px;
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+  }
+  
+  .postlist-buttons button:hover {
+    background-color: #007acc;
+  }
+  
+  .postlist-message {
+    text-align: center;
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .postlist-empty {
+    text-align: center;
+    color: #888;
+    font-size: 18px;
   }
   

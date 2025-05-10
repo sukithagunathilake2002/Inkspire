@@ -1,116 +1,150 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import '../styles/PostList.css'
+import { useNavigate } from 'react-router-dom';
+import '../styles/PostList.css'; // Make sure you link the CSS
 
-
-const BASE_URL = "http://localhost:8080"; // ✅ Backend server URL
-
-function PostList() {
+const PostList = () => {
   const [posts, setPosts] = useState([]);
-  const [editCaption, setEditCaption] = useState('');
+  const [message, setMessage] = useState('');
   const [editingPostId, setEditingPostId] = useState(null);
+  const [editDescription, setEditDescription] = useState('');
+  const [editIsPrivate, setEditIsPrivate] = useState(false);
+  const navigate = useNavigate();
 
-  const fetchPosts = async () => {
-    try {
-      const res = await axios.get(`${BASE_URL}/api/posts`);
-      setPosts(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetchPosts();
+    fetchMyPosts();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this post?')) {
-      try {
-        await axios.delete(`${BASE_URL}/api/posts/${id}`);
-        fetchPosts();
-      } catch (error) {
-        console.error(error);
-      }
+  const fetchMyPosts = async () => {
+    try {
+      const response = await axios.get('http://localhost:8081/api/posts/my-posts', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setPosts(response.data);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      setMessage('Failed to load posts');
     }
   };
 
-  const startEditing = (post) => {
-    setEditingPostId(post.id);
-    setEditCaption(post.caption);
-  };
+  const handleDelete = async (postId) => {
+    const confirmed = window.confirm('Are you sure you want to delete this post?');
+    if (!confirmed) return;
 
-  const cancelEditing = () => {
-    setEditingPostId(null);
-    setEditCaption('');
-  };
-
-  const handleUpdate = async (post) => {
     try {
-      await axios.put(`${BASE_URL}/api/posts/${post.id}`, {
-        caption: editCaption,
-        isVideo: post.isVideo,
-        mediaUrls: post.mediaUrls,
+      await axios.delete(`http://localhost:8081/api/posts/delete/${postId}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setEditingPostId(null);
-      fetchPosts();
+      setMessage('Post deleted successfully');
+      fetchMyPosts();
     } catch (error) {
-      console.error(error);
+      console.error('Error deleting post:', error);
+      setMessage('Failed to delete post');
+    }
+  };
+
+  const handleEdit = (post) => {
+    setEditingPostId(post.id);
+    setEditDescription(post.description);
+    setEditIsPrivate(post.private);
+  };
+
+  const handleUpdate = async (postId) => {
+    const confirmed = window.confirm('Are you sure you want to update this post?');
+    if (!confirmed) return;
+
+    try {
+      const formData = new FormData();
+      formData.append('description', editDescription);
+      formData.append('isPrivate', editIsPrivate);
+
+      await axios.put(`http://localhost:8081/api/posts/update/${postId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      setMessage('Post updated successfully');
+      setEditingPostId(null);
+      fetchMyPosts();
+    } catch (error) {
+      console.error('Error updating post:', error);
+      setMessage('Failed to update post');
     }
   };
 
   return (
     <div className="postlist-container">
-  <div className="postlist-header">
-    <h2>All Posts</h2>
-    <Link to="/newpost" className="create-post-btn">Create New Post</Link>
-  </div>
-
-  <div>
-    {posts.map(post => (
-      <div className="post-card" key={post.id}>
-        {post.isVideo ? (
-          <video className="post-media" controls src={`${BASE_URL}${post.mediaUrls[0]}`} />
-        ) : (
-          post.mediaUrls.map((url, idx) => (
-            <img
-              key={idx}
-              src={`${BASE_URL}${url}`}
-              alt={`media-${idx}`}
-              className="post-media"
-            />
-          ))
-        )}
-
-        <div className="post-body">
-          {editingPostId === post.id ? (
-            <>
-              <textarea
-                className="edit-caption"
-                value={editCaption}
-                onChange={(e) => setEditCaption(e.target.value)}
-              />
-              <div className="post-buttons">
-                <button className="btn btn-primary" onClick={() => handleUpdate(post)}>Save</button>
-                <button className="btn btn-secondary" onClick={cancelEditing}>Cancel</button>
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="post-caption">{post.caption}</p>
-              <div className="post-buttons">
-                <button className="btn btn-outline-primary" onClick={() => startEditing(post)}>Edit</button>
-                <button className="btn btn-outline-danger" onClick={() => handleDelete(post.id)}>Delete</button>
-              </div>
-            </>
-          )}
-        </div>
+      <div className="postlist-header">
+        <h2 className="postlist-title">My Posts</h2>
+        <button className="postlist-newpost-btn" onClick={() => navigate('/newpost')}>
+          + New Post
+        </button>
       </div>
-    ))}
-  </div>
-</div>
 
+      {message && <p className="postlist-message">{message}</p>}
+
+      {posts.length === 0 ? (
+        <p className="postlist-empty">No posts found.</p>
+      ) : (
+        posts.map((post) => (
+          <div key={post.id} className="postlist-card">
+            {editingPostId === post.id ? (
+              <div className="postlist-edit">
+                <textarea
+                  value={editDescription}
+                  onChange={(e) => setEditDescription(e.target.value)}
+                  rows={3}
+                />
+                <select
+                  value={editIsPrivate}
+                  onChange={(e) => setEditIsPrivate(e.target.value === 'true')}
+                >
+                  <option value="false">Public</option>
+                  <option value="true">Private</option>
+                </select>
+                <div className="postlist-buttons">
+                  <button onClick={() => handleUpdate(post.id)}>Save</button>
+                  <button onClick={() => setEditingPostId(null)}>Cancel</button>
+                </div>
+              </div>
+            ) : (
+              <div className="postlist-content">
+                <div className="postlist-media">
+                  {post.mediaUrls && post.mediaUrls.length > 0 &&
+                    post.mediaUrls.map((mediaUrl, idx) => (
+                      mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.mov') ? (
+                        <video key={idx} controls className="postlist-media-item">
+                          <source src={`http://localhost:8081/${mediaUrl.startsWith('uploads/') ? mediaUrl : 'uploads/' + mediaUrl}`}
+ />
+                        </video>
+                      ) : (
+                        <img
+                          key={idx}
+                          src={`http://localhost:8081/${mediaUrl.startsWith('uploads/') ? mediaUrl : 'uploads/' + mediaUrl}`}
+                          alt={`Post media ${idx}`}
+                          className="postlist-media-item"
+                        />
+                      )
+                    ))
+                  }
+                </div>
+                <p className="postlist-description">{post.description}</p>
+                <p className="postlist-privacy">{post.private ? 'Private' : 'Public'}</p>
+                <div className="postlist-buttons">
+                  <button onClick={() => handleEdit(post)}>Edit</button>
+                  <button onClick={() => handleDelete(post.id)}>Delete</button>
+                </div>
+              </div>
+            )}
+          </div>
+        ))
+      )}
+    </div>
   );
-}
+};
 
 export default PostList;

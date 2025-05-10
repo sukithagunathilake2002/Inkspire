@@ -1,91 +1,124 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../styles/NewPost.css'
+import '../styles/NewPost.css';
 
-function NewPost() {
-  const [caption, setCaption] = useState('');
-  const [files, setFiles] = useState([]);
-  const [isVideo, setIsVideo] = useState(false);
+const NewPost = () => {
+  const [description, setDescription] = useState('');
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [mediaFiles, setMediaFiles] = useState([]);
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    setFiles(selectedFiles);
+    const files = Array.from(e.target.files);
 
-    if (selectedFiles.length === 1 && selectedFiles[0].type.startsWith('video/')) {
-      setIsVideo(true);
+    const isVideo = files.some(file => file.type.startsWith('video/'));
+    const isImage = files.every(file => file.type.startsWith('image/'));
+
+    if (isVideo) {
+      if (files.length > 1) {
+        setMessage('You can only upload one video at a time.');
+        setMediaFiles([]);
+        return;
+      }
+    } else if (isImage) {
+      if (files.length > 3) {
+        setMessage('You can upload up to 3 images.');
+        setMediaFiles([]);
+        return;
+      }
     } else {
-      setIsVideo(false);
+      setMessage('Invalid file type. Only images or one video are allowed.');
+      setMediaFiles([]);
+      return;
     }
+
+    setMediaFiles(files);
+    setMessage('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    if (mediaFiles.length === 0) {
+      setMessage('Please select at least one media file.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('description', description);
+    formData.append('isPrivate', isPrivate.toString());
+
+    mediaFiles.forEach((file) => {
+      formData.append('media', file);
+    });
+
     try {
-      const mediaUrls = [];
-  
-      for (let file of files) {
-        const formData = new FormData();
-        formData.append('file', file);
-  
-        const uploadRes = await axios.post('http://localhost:8080/api/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
-  
-        console.log('Upload Response:', uploadRes.data); // 📋 LOG EACH UPLOAD RESPONSE
-        mediaUrls.push(uploadRes.data);
-      }
-  
-      console.log('Final mediaUrls to POST:', mediaUrls); // 📋 LOG ALL MEDIA URLS
-      console.log('Posting to /api/posts with:', {
-        caption,
-        isVideo,
-        mediaUrls,
+      await axios.post('http://localhost:8081/api/posts/create', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
       });
-  
-      const createRes = await axios.post('http://localhost:8080/api/posts', {
-        caption,
-        isVideo,
-        mediaUrls,
-      });
-  
-      console.log('Post creation success:', createRes.data);
-  
-      alert('Post created successfully!');
-      navigate('/');
+
+      setMessage('Post created successfully!');
+      setDescription('');
+      setIsPrivate(false);
+      setMediaFiles([]);
+      document.getElementById('mediaInput').value = '';
+
+      setTimeout(() => navigate('/postlist'), 1500);
     } catch (error) {
-      console.error('Post creation failed:', error.response ? error.response.data : error.message);
-      alert('Failed to create post.');
+      console.error('Error creating post:', error);
+      setMessage('Failed to create post.');
     }
   };
-  
 
   return (
-    <div className="newpost-container">
-  <h2 className="newpost-title">Create New Post</h2>
-  <form className="newpost-form" onSubmit={handleSubmit}>
-    <textarea
-      placeholder="Write a caption..."
-      value={caption}
-      onChange={(e) => setCaption(e.target.value)}
-      required
-    />
-    <input
-      type="file"
-      multiple
-      accept="image/*,video/*"
-      onChange={handleFileChange}
-    />
-    <small className="newpost-note">
-      Upload 1 video (max 30s) OR up to 3 images.
-    </small>
-    <button type="submit" className="newpost-button">Post</button>
-  </form>
-</div>
+    <div className="new-post-container">
+      <h2>Create New Post</h2>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div>
+          <label>Description:</label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            rows={4}
+            cols={50}
+          />
+        </div>
 
+        <div>
+          <label>Private:</label>
+          <input
+            type="checkbox"
+            checked={isPrivate}
+            onChange={(e) => setIsPrivate(e.target.checked)}
+          />{' '}
+          (Check = Private, Uncheck = Public)
+        </div>
+
+        <div>
+          <label>Upload Media (up to 3 photos or 1 video, max 30s):</label>
+          <input
+            id="mediaInput"
+            type="file"
+            accept="image/*,video/*"
+            multiple
+            onChange={handleFileChange}
+            required
+          />
+        </div>
+
+        <button type="submit">Post</button>
+      </form>
+
+      {message && <p>{message}</p>}
+    </div>
   );
-}
+};
 
 export default NewPost;

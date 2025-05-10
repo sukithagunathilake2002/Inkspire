@@ -16,6 +16,8 @@ import LearningPlans from './components/LearningPlans';
 import PrivateRoute from './components/PrivateRoute';
 import PostList from './components/PostList';
 import NewPost from './components/NewPost';
+import PublicFeed from './components/PublicFeed';
+import PublicPosts from './components/PublicPosts';
 // Removed GoogleOAuthProvider import as it's not being used
 
 function App() {
@@ -83,9 +85,11 @@ function App() {
                   </PrivateRoute>
                 }
               />
-              <Route path="/" element={<PostList />} />
+              <Route path="/postlist" element={<PostList />} />
               <Route path="/newpost" element={<NewPost />} />
-              
+              <Route path="/public-feed" element={<PublicFeed/>} />
+              <Route path="/publicposts" element={<PublicPosts/>} />
+
             </Routes>
             <Footer />
           </div>
