@@ -1,0 +1,72 @@
+.publicposts-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f9ff; /* light sky blue background */
+    color: #0f172a; /* dark navy text */
+  }
+  
+  .publicposts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .publicposts-newpost-btn {
+    background-color: #0ea5e9; /* sky blue */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .publicposts-newpost-btn:hover {
+    background-color: #0369a1; /* darker blue on hover */
+  }
+  
+  .publicposts-message {
+    color: #dc2626; /* red for error message */
+    margin-bottom: 10px;
+  }
+  
+  .publicposts-empty {
+    text-align: center;
+    color: #475569; /* slate gray */
+  }
+  
+  .publicposts-card {
+    background-color: #ffffff; /* white card */
+    border: 1px solid #e2e8f0; /* light gray border */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  
+  .publicposts-description {
+    margin-bottom: 10px;
+  }
+  
+  .publicposts-media {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .publicposts-media img,
+  .publicposts-media video {
+    border-radius: 6px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .publicposts-creator {
+    font-weight: bold;
+    color: #1e3a8a; /* dark blue for creator name */
+    margin-bottom: 5px;
+  }
+  

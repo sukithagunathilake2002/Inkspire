@@ -1,0 +1,55 @@
+.profile-container {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-paper {
+  padding: 2rem;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profile-field {
+  margin-bottom: 1rem;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.error-message {
+  margin: 1rem 0;
+  text-align: center;
+  color: #f44336;
+}
+
+/* Prevent text selection during double-clicks */
+.profile-paper button {
+  user-select: none;
+}
+
+/* Ensure buttons don't trigger form submission */
+button[type="button"] {
+  margin: 0;
+}
+
+.user-initials {
+  width: 40px;
+  height: 40px;
+  background-color: #1976d2;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+} 

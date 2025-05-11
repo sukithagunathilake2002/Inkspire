@@ -1,0 +1,90 @@
+.postlist-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .postlist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .postlist-title {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .postlist-newpost-btn {
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .postlist-card {
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  
+  .postlist-media {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #f0f8ff;
+  }
+  
+  .postlist-media-item {
+    max-width: 100%;
+    height: auto;
+    margin: 5px 0;
+  }
+  
+  .postlist-description {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .postlist-privacy {
+    padding: 0 15px 10px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .postlist-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+  
+  .postlist-buttons button {
+    background-color: #4da6ff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .postlist-buttons button:hover {
+    background-color: #007acc;
+  }
+  
+  .postlist-message {
+    text-align: center;
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  .postlist-empty {
+    text-align: center;
+    color: #888;
+    font-size: 18px;
+  }
+  
