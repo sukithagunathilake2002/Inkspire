@@ -5,6 +5,7 @@ com\inkspire\inkspire\Dto\CommentDto.class
 com\inkspire\inkspire\config\WebConfig.class
 com\inkspire\inkspire\model\Reminder.class
 com\inkspire\inkspire\payload\AuthResponse.class
+com\inkspire\inkspire\service\LikeService.class
 com\inkspire\inkspire\controller\AuthController.class
 com\inkspire\inkspire\payload\LearningPlanResponse.class
 com\inkspire\inkspire\service\impl\PostService.class
@@ -14,7 +15,9 @@ com\inkspire\inkspire\payload\SignupRequest.class
 com\inkspire\inkspire\config\SecurityConfig.class
 com\inkspire\inkspire\config\JwtAuthenticationFilter.class
 com\inkspire\inkspire\repository\UserRepository.class
+com\inkspire\inkspire\service\PostCommentService.class
 com\inkspire\inkspire\repository\CommentRepository.class
+com\inkspire\inkspire\model\Like.class
 com\inkspire\inkspire\service\UserService.class
 com\inkspire\inkspire\config\OAuth2Config.class
 com\inkspire\inkspire\repository\LearningPlanRepository.class
@@ -23,15 +26,16 @@ com\inkspire\inkspire\controller\ProgressUpdate.class
 com\inkspire\inkspire\InkspireApplication.class
 com\inkspire\inkspire\repository\PostRepository.class
 com\inkspire\inkspire\payload\LoginRequest.class
+com\inkspire\inkspire\repository\LikeRepository.class
 com\inkspire\inkspire\service\impl\LearningPlanServiceImpl.class
 com\inkspire\inkspire\service\CommentService.class
 com\inkspire\inkspire\service\LearningPlanService.class
 com\inkspire\inkspire\model\LearningPlan.class
 com\inkspire\inkspire\config\LocalDateTimeDeserializer.class
-com\inkspire\inkspire\service\impl\CommentServiceImpl.class
 com\inkspire\inkspire\controller\LearningPlanController.class
 com\inkspire\inkspire\payload\PostResponse.class
 com\inkspire\inkspire\service\impl\UserServiceImpl.class
+com\inkspire\inkspire\controller\LikeController.class
 com\inkspire\inkspire\controller\PostController.class
 com\inkspire\inkspire\model\createdAt.class
 com\inkspire\inkspire\model\Milestone.class
