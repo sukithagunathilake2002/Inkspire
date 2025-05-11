@@ -7,6 +7,8 @@ D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\config\WebConfi
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\AuthController.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\CommentController.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\LearningPlanController.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\PostController.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\UploadController.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\Dto\CommentDto.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\exception\GlobalExceptionHandler.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\InkspireApplication.java
@@ -21,6 +23,7 @@ D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\payload\AuthRes
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\payload\ErrorResponse.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\payload\LearningPlanResponse.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\payload\LoginRequest.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\payload\PostResponse.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\payload\SignupRequest.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\CommentRepository.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\LearningPlanRepository.java
@@ -30,6 +33,7 @@ D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\User
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\CommentService.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\impl\CommentServiceImpl.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\impl\LearningPlanServiceImpl.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\impl\PostService.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\impl\UserServiceImpl.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\LearningPlanService.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\UserService.java

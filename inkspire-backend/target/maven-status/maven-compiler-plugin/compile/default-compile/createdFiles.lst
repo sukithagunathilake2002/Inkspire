@@ -7,6 +7,7 @@ com\inkspire\inkspire\model\Reminder.class
 com\inkspire\inkspire\payload\AuthResponse.class
 com\inkspire\inkspire\controller\AuthController.class
 com\inkspire\inkspire\payload\LearningPlanResponse.class
+com\inkspire\inkspire\service\impl\PostService.class
 com\inkspire\inkspire\payload\LearningPlanResponse$UserSummary.class
 com\inkspire\inkspire\controller\CommentController.class
 com\inkspire\inkspire\payload\SignupRequest.class
@@ -29,7 +30,9 @@ com\inkspire\inkspire\model\LearningPlan.class
 com\inkspire\inkspire\config\LocalDateTimeDeserializer.class
 com\inkspire\inkspire\service\impl\CommentServiceImpl.class
 com\inkspire\inkspire\controller\LearningPlanController.class
+com\inkspire\inkspire\payload\PostResponse.class
 com\inkspire\inkspire\service\impl\UserServiceImpl.class
+com\inkspire\inkspire\controller\PostController.class
 com\inkspire\inkspire\model\createdAt.class
 com\inkspire\inkspire\model\Milestone.class
 com\inkspire\inkspire\exception\GlobalExceptionHandler.class

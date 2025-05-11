@@ -33,9 +33,7 @@ const PublicPosts = () => {
     <div className="publicposts-container">
       <div className="publicposts-header">
         <h2>My Public Posts</h2>
-        <button className="publicposts-newpost-btn" onClick={() => navigate('/newpost')}>
-          + New Post
-        </button>
+        
       </div>
 
       {message && <p className="publicposts-message">{message}</p>}
