@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Paper, TextField, Button, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Profile.css';
 
 const Profile = () => {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
@@ -23,7 +25,7 @@ const Profile = () => {
   }, [currentUser]);
 
   const handleChange = (e) => {
-    e.preventDefault(); // Prevent any default behavior
+    e.preventDefault();
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -32,14 +34,13 @@ const Profile = () => {
   };
 
   const handleEdit = (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     setIsEditing(true);
   };
 
   const handleCancel = (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     setIsEditing(false);
-    // Reset form data to current user data
     const storedUser = JSON.parse(localStorage.getItem('user'));
     setFormData({
       name: currentUser.name || '',
@@ -48,8 +49,8 @@ const Profile = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent form submission
-    e.stopPropagation(); // Stop event bubbling
+    e.preventDefault();
+    e.stopPropagation();
 
     try {
       const response = await fetch('http://localhost:8081/api/auth/profile', {
@@ -66,19 +67,16 @@ const Profile = () => {
       }
 
       const updatedData = await response.json();
-      
-      // Update local storage with new data
+
       const currentStoredUser = JSON.parse(localStorage.getItem('user'));
       const updatedUser = { ...currentStoredUser, ...formData };
       localStorage.setItem('user', JSON.stringify(updatedUser));
 
-      // Only set isEditing to false after successful update
       setIsEditing(false);
       setError('');
     } catch (err) {
       console.error('Error updating profile:', err);
       setError(err.message || 'Failed to update profile');
-      // Don't change isEditing state on error
     }
   };
 
@@ -88,6 +86,16 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
+      <div className="my-posts-button-wrapper">
+        <Button
+          className="my-posts-button"
+          variant="contained"
+          onClick={() => navigate('/postlist')}
+        >
+          My Posts
+        </Button>
+      </div>
+
       <Paper elevation={3} className="profile-paper">
         <Typography variant="h4" gutterBottom>
           Profile
@@ -173,4 +181,4 @@ const Profile = () => {
   );
 };
 
-export default Profile; 
+export default Profile;

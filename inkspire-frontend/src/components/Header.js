@@ -107,8 +107,8 @@ const Header = () => {
 
               <Button
                 component={Link}
-                to="/posts"
-                className={`nav-button ${isActive('/posts') ? 'active' : ''}`}
+                to="/publicposts"
+                className={`nav-button ${isActive('/publicposts') ? 'active' : ''}`}
                 startIcon={<ForumIcon />}
               >
                 Posts
