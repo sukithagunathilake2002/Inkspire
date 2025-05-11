@@ -1,75 +1,52 @@
 package com.inkspire.inkspire.controller;
 
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.inkspire.inkspire.Dto.CommentDto;
 import com.inkspire.inkspire.model.Comment;
-import com.inkspire.inkspire.service.CommentService;
-
+import com.inkspire.inkspire.model.User;
+import com.inkspire.inkspire.service.PostCommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/posts/{postId}/comments")
 @RequiredArgsConstructor
 public class CommentController {
 
-    private final CommentService commentService;
+    private final PostCommentService commentService;
 
-    // GET: Get all comments for a post
     @GetMapping
-    public ResponseEntity<List<Comment>> getCommentsForPost(@PathVariable Long postId) {
-        List<Comment> comments = commentService.getCommentsForPost(postId);
-        return new ResponseEntity<>(comments, HttpStatus.OK);
+    public ResponseEntity<List<Comment>> getComments(@PathVariable Long postId) {
+        return ResponseEntity.ok(commentService.getCommentsForPost(postId));
     }
 
-    // POST: Add a comment to a post
     @PostMapping
-    public ResponseEntity<Comment> addCommentToPost(
+    public ResponseEntity<Comment> addComment(
             @PathVariable Long postId,
-            @RequestBody CommentDto request
+            @AuthenticationPrincipal User user,
+            @RequestBody String content
     ) {
-        Comment comment = commentService.addCommentToPost(
-                postId,
-                request.getContent(),
-                request.getCommentBy(),
-                request.getCommentById(),
-                request.getCommentByProfile()
-        );
-        return new ResponseEntity<>(comment, HttpStatus.CREATED);
+        return ResponseEntity.ok(commentService.addComment(postId, user, content));
     }
 
-    // DELETE: Remove a comment from a post
-    @DeleteMapping("/{commentId}")
-    public ResponseEntity<Void> deleteComment(
-            @PathVariable Long postId,
-            @PathVariable Long commentId
-    ) {
-        commentService.deleteComment(postId, commentId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    // PUT: Edit a comment
     @PutMapping("/{commentId}")
     public ResponseEntity<Comment> editComment(
             @PathVariable Long commentId,
-            @RequestBody CommentDto request
+            @AuthenticationPrincipal User user,
+            @RequestBody String newContent
     ) {
-        Comment editedComment = commentService.editComment(commentId, request.getContent());
-        if (editedComment != null) {
-            return new ResponseEntity<>(editedComment, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Comment updated = commentService.updateComment(commentId, user, newContent);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> deleteComment(
+            @PathVariable Long commentId,
+            @AuthenticationPrincipal User user
+    ) {
+        commentService.deleteComment(commentId, user);
+        return ResponseEntity.noContent().build();
     }
 }

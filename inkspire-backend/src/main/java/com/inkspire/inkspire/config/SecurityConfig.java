@@ -46,6 +46,8 @@ public class SecurityConfig {
                 // ✅ NEW: Allow public access to comments APIs for testing (temporarily)
                 .requestMatchers("/posts/**").permitAll()
 
+                
+
                 // 🚨 Everything else still needs authentication
                 .anyRequest().authenticated()
             )

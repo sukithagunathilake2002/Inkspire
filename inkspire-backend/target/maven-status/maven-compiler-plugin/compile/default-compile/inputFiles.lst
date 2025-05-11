@@ -7,6 +7,7 @@ D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\config\WebConfi
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\AuthController.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\CommentController.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\LearningPlanController.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\LikeController.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\PostController.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\controller\UploadController.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\Dto\CommentDto.java
@@ -15,6 +16,7 @@ D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\InkspireApplica
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\model\Comment.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\model\createdAt.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\model\LearningPlan.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\model\Like.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\model\Milestone.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\model\Post.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\model\Reminder.java
@@ -27,13 +29,15 @@ D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\payload\PostRes
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\payload\SignupRequest.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\CommentRepository.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\LearningPlanRepository.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\LikeRepository.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\PostRepository.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\ReminderRepository.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\repository\UserRepository.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\CommentService.java
-D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\impl\CommentServiceImpl.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\impl\LearningPlanServiceImpl.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\impl\PostService.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\impl\UserServiceImpl.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\LearningPlanService.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\LikeService.java
+D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\PostCommentService.java
 D:\Inkspire\inkspire-backend\src\main\java\com\inkspire\inkspire\service\UserService.java

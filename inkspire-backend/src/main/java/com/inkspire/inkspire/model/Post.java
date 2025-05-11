@@ -96,4 +96,11 @@ public class Post {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Comment> comments;
+
+@OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Like> likes;
+
 }

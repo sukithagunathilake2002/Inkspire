@@ -85,10 +85,20 @@ function App() {
                   </PrivateRoute>
                 }
               />
+
+               <Route
+                path="/posts"
+                element={
+                  <PrivateRoute>
+                    <PublicPosts/>
+                  </PrivateRoute>
+                }
+              />
+              
               <Route path="/postlist" element={<PostList />} />
               <Route path="/newpost" element={<NewPost />} />
               <Route path="/public-feed" element={<PublicFeed/>} />
-              <Route path="/publicposts" element={<PublicPosts/>} />
+             
 
             </Routes>
             <Footer />
