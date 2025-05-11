@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore local configuration files containing sensitive database credentials
+src/main/resources/application-local.properties

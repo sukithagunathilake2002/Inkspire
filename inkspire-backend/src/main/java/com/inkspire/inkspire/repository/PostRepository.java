@@ -1,10 +1,18 @@
 package com.inkspire.inkspire.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.inkspire.inkspire.model.Post;
+import com.inkspire.inkspire.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PostRepository  extends JpaRepository<Post, Long>{
+import java.util.List;
 
-    
+@Repository
+public interface PostRepository extends JpaRepository<Post, Long> {
+
+    // Find all public posts
+    List<Post> findByIsPrivateFalse();
+
+    // Find all posts by a specific user
+    List<Post> findByUser(User user);
 }

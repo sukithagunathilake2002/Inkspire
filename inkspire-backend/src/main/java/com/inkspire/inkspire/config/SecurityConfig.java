@@ -41,6 +41,7 @@ public class SecurityConfig {
                 
                 // ✅ Allow CORS preflight requests (OPTIONS requests) without authentication
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/api/posts/public").permitAll()
 
                 // ✅ NEW: Allow public access to comments APIs for testing (temporarily)
                 .requestMatchers("/posts/**").permitAll()
@@ -87,4 +88,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    
+}
 }

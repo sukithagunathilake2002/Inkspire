@@ -1,0 +1,66 @@
+.new-post-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 2px solid #cce0ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 51, 102, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.new-post-container h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 20px;
+}
+
+.new-post-container form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #003366;
+}
+
+.new-post-container textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b3d1ff;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: vertical;
+  margin-top: 5px;
+}
+
+.new-post-container input[type="file"],
+.new-post-container input[type="checkbox"] {
+  margin-top: 10px;
+}
+
+.new-post-container input[type="checkbox"] {
+  transform: scale(1.3);
+  margin-left: 10px;
+}
+
+.new-post-container button[type="submit"] {
+  margin-top: 25px;
+  padding: 10px 20px;
+  background-color: #3399ff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.new-post-container button[type="submit"]:hover {
+  background-color: #267acc;
+}
+
+.new-post-container .message {
+  margin-top: 20px;
+  color: #cc0000;
+  text-align: center;
+  font-weight: bold;
+}
