@@ -14,23 +14,23 @@ const NewPost = () => {
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
 
-    const isVideo = files.some(file => file.type.startsWith('video/'));
-    const isImage = files.every(file => file.type.startsWith('image/'));
+    const videoFiles = files.filter(file => file.type.startsWith('video/'));
+    const imageFiles = files.filter(file => file.type.startsWith('image/'));
 
-    if (isVideo) {
-      if (files.length > 1) {
-        setMessage('You can only upload one video at a time.');
-        setMediaFiles([]);
-        return;
-      }
-    } else if (isImage) {
-      if (files.length > 3) {
-        setMessage('You can upload up to 3 images.');
-        setMediaFiles([]);
-        return;
-      }
-    } else {
-      setMessage('Invalid file type. Only images or one video are allowed.');
+    if (videoFiles.length > 1) {
+      setMessage('You can only upload one video at a time.');
+      setMediaFiles([]);
+      return;
+    }
+
+    if (videoFiles.length === 1 && imageFiles.length > 0) {
+      setMessage('You cannot upload both video and images together.');
+      setMediaFiles([]);
+      return;
+    }
+
+    if (imageFiles.length > 3) {
+      setMessage('You can upload up to 3 images.');
       setMediaFiles([]);
       return;
     }
@@ -116,7 +116,7 @@ const NewPost = () => {
         <button type="submit">Post</button>
       </form>
 
-      {message && <p>{message}</p>}
+      {message && <p className="message">{message}</p>}
     </div>
   );
 };

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../styles/PublicFeed.css'; // Optional: style uniquely
+
+const BASE_URL = 'http://localhost:8081';
 
 const PublicFeed = () => {
   const [posts, setPosts] = useState([]);
@@ -11,7 +14,7 @@ const PublicFeed = () => {
 
   const fetchPublicPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/api/posts/public');
+      const response = await axios.get(`${BASE_URL}/api/posts/public`);
       setPosts(response.data);
     } catch (error) {
       console.error('Error fetching public posts:', error);
@@ -20,39 +23,37 @@ const PublicFeed = () => {
   };
 
   return (
-    <div className="public-feed-container" style={{ padding: '20px' }}>
-      <h2>Public Feed</h2>
-      {message && <p>{message}</p>}
+    <div className="public-feed-container">
+      <h2 className="feed-title">Public Feed</h2>
+      {message && <p className="feed-message">{message}</p>}
 
       {posts.length === 0 ? (
-        <p>No public posts available.</p>
+        <p className="feed-empty">No public posts available.</p>
       ) : (
         posts.map((post) => (
-          <div key={post.id} className="post-card" style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
-            <p>
-              <strong>Creator:</strong> {post.creatorName}
-            </p>
-            <p>
-              <strong>Description:</strong> {post.description}
-            </p>
-            <div>
+          <div key={post.id} className="feed-card">
+            <p className="feed-creator"><strong>By:</strong> {post.creatorName}</p>
+            <div className="feed-media">
               {post.mediaUrls && post.mediaUrls.length > 0 &&
-                post.mediaUrls.map((mediaUrl, idx) => (
-                  mediaUrl.endsWith('.mp4') || mediaUrl.endsWith('.mov') ? (
-                    <video key={idx} width="300" controls style={{ marginBottom: '10px' }}>
-                      <source src={`http://localhost:8081/uploads/${mediaUrl}`} />
-                    </video>
-                  ) : (
+                (post.isVideo ? (
+                  <video controls width="100%" className="feed-video">
+                    <source src={`${BASE_URL}/uploads/${post.mediaUrls[0]}`} />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  post.mediaUrls.map((mediaUrl, idx) => (
                     <img
                       key={idx}
-                      src={`http://localhost:8081/uploads/${mediaUrl}`}
+                      src={`${BASE_URL}/uploads/${mediaUrl}`}
                       alt={`Post media ${idx}`}
-                      width="300"
-                      style={{ marginBottom: '10px' }}
+                      className="feed-image"
                     />
-                  )
-                ))
-              }
+                  ))
+                ))}
+            </div>
+            <div className="feed-body">
+              <p className="feed-description">{post.description}</p>
+              <p className="feed-privacy">{post.private ? 'Private' : 'Public'}</p>
             </div>
           </div>
         ))
